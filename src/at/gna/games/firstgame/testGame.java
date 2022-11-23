@@ -1,12 +1,13 @@
 package at.gna.games.firstgame;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.tests.AnimationTest;
 
-public class Rectangle extends BasicGame {
-    private int x;
+public class testGame extends BasicGame {
+    private float x;
+    private float y;
+    private float speed = 0.5f;
 
-    public Rectangle(String title)
+    public testGame(String title)
     {
         super(title);
     }
@@ -14,27 +15,31 @@ public class Rectangle extends BasicGame {
     @Override
     public void init(GameContainer gameContainer) throws SlickException
     {
-        this.x = 100;
+        this.x = 50;
+        this.y = 50;
     }
 
     @Override
-    public void update(GameContainer gameContainer, int i) throws SlickException
+    public void update(GameContainer gameContainer, int delta) throws SlickException
     {
-        this.x++;
+        this.x += (float)delta * speed;
+        if(x > 800)
+        {
+            x = -50;
+        }
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException
     {
-        graphics.drawRect(50, 50, x, x);
-        graphics.drawOval(200, 200, 50, 50);
+        graphics.drawOval(x, y, 50, 50);
     }
 
 
 
     public static void main(String[] argv) {
         try {
-            AppGameContainer container = new AppGameContainer(new Rectangle("Rectangles"));
+            AppGameContainer container = new AppGameContainer(new testGame("Rectangles"));
             container.setDisplayMode(800,600,false);
             container.start();
         } catch (SlickException e) {
